@@ -3,6 +3,7 @@ name: Multipy runtime nightly release
 on:
   schedule:
     - cron: '0 2 * * *' # run at 2 AM UTC
+  pull_request:
 
 jobs:
   unittest:
@@ -77,6 +78,10 @@ jobs:
               cd multipy/runtime/third-party/pytorch
               export USE_DEPLOY=1
               conda run -n multipy_runtime_env python setup.py develop
+<<<<<<< HEAD
+=======
+
+>>>>>>> 54d54a4 (temp pr to get ourselves a release)
       - name: Build multipy runtime with ABI=${{ matrix.abi }}
         shell: bash -l {0}
         env:
@@ -87,6 +92,10 @@ jobs:
               cd build
               conda run -n multipy_runtime_env cmake -DABI_EQUALS_1=${{ matrix.abi }} ..
               conda run -n multipy_runtime_env cmake --build . --config Release
+<<<<<<< HEAD
+      - name: install files
+=======
+
       - name: install files
         shell: bash -l {0}
         env:
@@ -94,6 +103,21 @@ jobs:
         run: |
               cd multipy/runtime/build
               conda run -n multipy_runtime_env cmake --install . --prefix "."
+
+      - name: inspect binary [debug job]
+>>>>>>> 54d54a4 (temp pr to get ourselves a release)
+        shell: bash -l {0}
+        env:
+          PYTHON_VERSION: ${{ matrix.python-version }}
+        run: |
+<<<<<<< HEAD
+              cd multipy/runtime/build
+              conda run -n multipy_runtime_env cmake --install . --prefix "."
+=======
+              cd multipy/runtime/build/dist/multipy/runtime/lib
+              nm libtorch_deploy.a
+
+>>>>>>> 54d54a4 (temp pr to get ourselves a release)
       - name: Run unit tests with ABI=${{ matrix.abi }}
         shell: bash -l {0}
         env:
